@@ -1,2 +1,52 @@
-# Spotify-Car-Thing
-A designated spotify display that can control playback, fetch track information including song duration, song artist, song album and displays lyrics. This spotify display is specially modified to fit in among non-coders by logging in wifi credentials and authentication throughout captive portal
+# Spotify Car Thing_v1
+A designated spotify display that can control playback, fetch track information including song duration, song artist, song album and displays lyrics. This spotify display is specially modified to fit in among non-coders by logging in wifi credentials throughout captive portal.
+However for the one-time authentication part from Spotify API have to done it through a serial monitor by running the given code. 
+****Note this device requires Spotify Premium and external sound system e.g. phone, laptop, speaker**
+<img width="4000" height="3000" alt="Spotify_Car_Thing__v1_(rendered case)" src="https://github.com/user-attachments/assets/88d3d9d5-75f8-41c5-97be-8fcc931b804c" />
+# Why I want to build this?
+- A spotify car thing manufactured from Spotify costs over 30 USD, and for aesthetics reasons, I think that it is cool to have one sitting right in front of the car dashboard.
+- The original spotify car thing doesn't support lyrics display and whenever I heard a song playing in my Spotify, I have the curiosity to seek for the lyrics. But I doesn't want the lyrics to pop out in the corner of my desktop. Instead I wanted a seperate display device for this.
+- Spotify discontinued their Car Thing in 2022 which then I think there is a lot of potential with this product it can bring to the car interior industry and music industry.
+# Why this and not other products?
+- Cheap and affordable. Products like this only uses microcontrollers to access the API through internet to get lyrics and fetch track information.
+- Doesn't have to be a "car thing", it can be a display on your table for decorating purposes.
+- Flexibility. Instead of using bluetooth, this device requires wifi which is much more wider and higher bandwidth compared to bluetooth.
+- Low power required. This device only borrows a little port from your device to operate, and doesn't requires a power plug for this device to work.
+# How to setup? (one-time setup)
+1. Download the .ino code into Arduino IDE or other code editor platforms that support ino files.
+2. Go to https://developer.spotify.com/dashboard and click create apps to have access to the API.
+3. For the redirect url, enter this url https://spotifyesp32.vercel.app/api/spotify/callback
+4. Copy the client ID and client secret in the developer page.<img width="1919" height="916" alt="image" src="https://github.com/user-attachments/assets/6efaa6dc-b6db-48da-88d5-cf05436da376" />
+5. Enter the client ID and client secret at the 16th and 17th row.<img width="1227" height="274" alt="image" src="https://github.com/user-attachments/assets/8dd495a4-9623-46a1-99e7-060dfd3cd460" />
+6. Plug in the Spotify Car Thing into your laptop or desktop.
+7. Compile and upload the code into the esp32 devkit_v1.
+8. Open the serial monitor.
+9. Connect to the wifi called "SpotifyCarThing" with the password "spotify123".
+10. It will bring you to a captive web portal for you to enter your wifi credentials.
+11. Enter your wifi credentials in the text box, it can be a home wifi or your personal hotspot from your device. (the wifi have to be in 2.4 GHz Band) **(IOS user have to turn on maximise compatibility)**
+12. From the serial monitor, copy the authentication url provided and copy it into your browser to login and authenticate your spotify account. 
+13. Play something on your Spotify app!
+# How to use it (in the long run)
+1. Powering it up
+   - Connect this to a 5v power supply through the micro usb slot in the left hand side of the device. A USB port from your laptop/desktop or a standard 5v USB wall charger will do.
+2. Play/Pause toggle switch
+   - Locate the middle from top to bottom switch to play or pause the current track.
+3. Skip track switch
+   - Locate the most bottom from top to bottom switch to skip forward the current playing track.
+4. Previous track switch
+   - Locate the toppest from top to bottom switch to skip backwards the current playing track.
+5. Reset WiFi hidden switch
+   - Long press on all 3 switch for 3 seconds the reset the WiFi.
+   - Repeat the process to enter wifi credentials
+# How it works
+1. Setup mode 
+- The ESP32 creates it's own hotspot through access point mode and create a captive web portal.
+- Connects to the wifi credentials provided from the captive web portal by becoming into station mode.
+- User will authenticate their spotify account to obtain the refresh token and access token (required by spotify) <img width="831" height="555" alt="image" src="https://github.com/user-attachments/assets/bcbecccc-453e-4ddf-9c17-f7550e56f275" />
+2. Controlling playback flow
+- Using this library https://github.com/FinianLandes/SpotifyEsp32 and setting the scopes from https://developer.spotify.com/documentation/web-api/concepts/scopes
+3. Obtaining lyrics from lrclib API
+- ESP32 will make HTTP requests to obtain the lyrics in Json document form containing synced lyrics and unsynced lyrics.
+4. Synced lyrics
+- ESP32 will create it's own timestamp to match with the synced lyrics' timestamp whenever the current track started playing.
+# Parts needed
