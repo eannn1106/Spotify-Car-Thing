@@ -51,3 +51,20 @@ However for the one-time authentication part from Spotify API have to done it th
 - ESP32 will create it's own timestamp to match with the synced lyrics' timestamp whenever the current track started playing.
 # Parts needed
 [Bill of Materials](BOM.csv)
+# Schematic
+<img width="1525" height="877" alt="image" src="https://github.com/user-attachments/assets/eff37c1b-94e0-4b02-8c2c-3a58f313a164" />
+
+# PCB
+<img width="1574" height="831" alt="image" src="https://github.com/user-attachments/assets/2179bdd5-56b1-4249-9ae3-ca6933ca5e32" />
+3D view of the PCB
+<img width="1082" height="678" alt="image" src="https://github.com/user-attachments/assets/3ebd187c-baae-4ad9-88ef-633375043da2" />
+<img width="1032" height="645" alt="image" src="https://github.com/user-attachments/assets/3b8edd2f-04bf-4020-be49-252218ae8e59" />
+
+To make the device more compact, I decided to add the ESP32 below the PCB
+#Case
+The case is being held by 4 cantilever snaps at the four corners of the case.
+<img width="1125" height="679" alt="image" src="https://github.com/user-attachments/assets/05019cee-6130-42db-b542-c6c89a17285b" />
+<img width="1068" height="580" alt="image" src="https://github.com/user-attachments/assets/382c4896-2f38-4874-b40b-9287b0c62510" />
+
+The PCB is being screwed into these 4 screw towers using 4x M3 screws
+<img width="1241" height="739" alt="image" src="https://github.com/user-attachments/assets/b2ac7ffb-c3dd-46a8-8230-39c27836538c" />
