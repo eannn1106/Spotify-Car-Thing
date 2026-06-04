@@ -50,3 +50,4 @@ However for the one-time authentication part from Spotify API have to done it th
 4. Synced lyrics
 - ESP32 will create it's own timestamp to match with the synced lyrics' timestamp whenever the current track started playing.
 # Parts needed
+[Bill of Materials](BOM.csv)
