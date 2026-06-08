@@ -7,7 +7,7 @@ However for the one-time authentication part from Spotify API have to done it th
 - A spotify car thing manufactured from Spotify costs over 30 USD, and for aesthetics reasons, I think that it is cool to have one sitting right in front of the car dashboard.
 - The original spotify car thing doesn't support lyrics display and whenever I heard a song playing in my Spotify, I have the curiosity to seek for the lyrics. But I doesn't want the lyrics to pop out in the corner of my desktop. Instead I wanted a seperate display device for this.
 - Spotify discontinued their Car Thing in 2022 which then I think there is a lot of potential with this product it can bring to the car interior industry and music industry.
-# Why this and not other products?
+# Why you should prefer this and not other products?
 - Cheap and affordable. Products like this only uses microcontrollers to access the API through internet to get lyrics and fetch track information.
 - Doesn't have to be a "car thing", it can be a display on your table for decorating purposes.
 - Flexibility. Instead of using bluetooth, this device requires wifi which is much more wider and higher bandwidth compared to bluetooth.
