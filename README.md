@@ -13,16 +13,17 @@ However for the one-time authentication part from Spotify API have to done it th
 - Flexibility. Instead of using bluetooth, this device requires wifi which is much more wider and higher bandwidth compared to bluetooth.
 - Low power required. This device only borrows a little port from your device to operate, and doesn't requires a power plug for this device to work.
 # How to setup? (one-time setup)
-1. Download the .ino code into Arduino IDE or other code editor platforms that support ino files.
+1. Download the sketch file code into Arduino IDE or other code editor platforms that support sketch files.
 2. Go to https://developer.spotify.com/dashboard and click create apps to have access to the API.
 3. For the redirect url, enter this url https://spotifyesp32.vercel.app/api/spotify/callback
 4. Copy the client ID and client secret in the developer page.<img width="1919" height="916" alt="image" src="https://github.com/user-attachments/assets/6efaa6dc-b6db-48da-88d5-cf05436da376" />
+**image from developer.spotify.com
 5. Enter the client ID and client secret at the 16th and 17th row.<img width="1227" height="274" alt="image" src="https://github.com/user-attachments/assets/8dd495a4-9623-46a1-99e7-060dfd3cd460" />
 6. Plug in the Spotify Car Thing into your laptop or desktop.
 7. Compile and upload the code into the esp32 devkit_v1.
 8. Open the serial monitor.
 9. Connect to the wifi called "SpotifyCarThing" with the password "spotify123".
-10. It will bring you to a captive web portal for you to enter your wifi credentials.
+10. It will bring you to a captive web portal for you to enter your wifi credentials. <img width="1177" height="2560" alt="image" src="https://github.com/user-attachments/assets/e3a1f621-24a0-4bdf-9f69-11e4c120392b" />
 11. Enter your wifi credentials in the text box, it can be a home wifi or your personal hotspot from your device. (the wifi have to be in 2.4 GHz Band) **(IOS user have to turn on maximise compatibility)**
 12. From the serial monitor, copy the authentication url provided and copy it into your browser to login and authenticate your spotify account. 
 13. Play something on your Spotify app!
@@ -39,21 +40,56 @@ However for the one-time authentication part from Spotify API have to done it th
    - Long press on all 3 switch for 3 seconds the reset the WiFi.
    - Repeat the process to enter wifi credentials
 # How it works
-1. Setup mode 
-- The ESP32 creates it's own hotspot through access point mode and create a captive web portal.
-- Connects to the wifi credentials provided from the captive web portal by becoming into station mode.
-- User will authenticate their spotify account to obtain the refresh token and access token (required by spotify) <img width="831" height="555" alt="image" src="https://github.com/user-attachments/assets/bcbecccc-453e-4ddf-9c17-f7550e56f275" />
+1. Authentication mode
+<img width="831" height="555" alt="image" src="https://github.com/user-attachments/assets/bcbecccc-453e-4ddf-9c17-f7550e56f275" />
+ 
+ **image from developer.spotify.com
+
+- Refresh token is the permanent credential while access token expires every hour but Spotify ESP32 library handles renewal automatically.
+- Spotify ESP32 library will generate an authentication url with random state tokens that cant be duplicated and print it in the serial monitor.
+- After authentication, spotify redirects to vercel.app callback which also handled by spotify ESP32 library.
+- Callback exchanges authentication code for refresh token and access token.
+- ESP32 receives these tokens by using this sp.handle_client() function and refresh token will be saved by using SPIFFS library in the flash memory.
 2. Controlling playback flow
-- Using this library https://github.com/FinianLandes/SpotifyEsp32 and setting the scopes from https://developer.spotify.com/documentation/web-api/concepts/scopes, user will constantly make web api requests and obtain the reponse status code as an indication of the status of the request.
+- By setting the scopes from https://developer.spotify.com/documentation/web-api/concepts/scopes, it allows us to make a few requests to spotify api and obtain information, for this specific project I've set the scopes to user-read-playback-state, user-modify-playback-state and user-read-currently-playing.
+- Refresh token is loaded and access token is constantly be renewed by Spotify ESP32 library on first API call.
+- API will be called for every 1 second to obtain the real position of the specific track position.
 - Obtained data from the web api will be in Json document form and will be parsed into each variable.
 3. Obtaining lyrics from lrclib API
 - ESP32 will make HTTP requests to obtain the lyrics in Json document form containing synced lyrics and unsynced lyrics.
 4. Synced lyrics
+- Lrclib API is a free open source lyrics API, and obtained synced lyrics comes with the format of milisecond timestamp where convertions will be handled locally by ESP 32.
 - ESP32 will create it's own timestamp to match with the synced lyrics' timestamp whenever the current track started playing.
-5. 
+5. Wifi login
+- ESP32 will first check if there is any saved networks in the flash memory, if no it will execute captive portal.
+- ESP32 will create a Wifi hotspot "SpotifyCarThing" by switching mode to Access point mode.
+- DNSServer intercepts all DNS queries and redirect to the IP address of your ESP32.
+- Browser automatically opens the setup page for user to type in their wifi credentials.
+- After user types their wifi credentials, it will be saved into the flash memory of ESP32 using the Prefences library.
+- ESP32 switches to station mode, and the captive portal will be closed.
+- Right now, ESP32 will already have the saved wifi credentials in their flash memory, ESP32 will restart and check then connects to the wifi in the flash memory.
+6. TFT display management
+- Rewriting the entire screen every second will cause constant visible flickering. Instead, each displayed element in NowPlayingInfo is being tracked by the variables locally.
+- If the displayed elements doesnt match the current element, it will be updated.
+- Text sizing is dynamic as size 2 is used by defauly and will automatically drop the size to 1 if the text is wider than the screen width which is 480px.
+
 # Parts needed
 [Bill of Materials](BOM.csv)
-# Schematic
+
+# How to assemble?
+1. Prepare all the parts stated in the BOM
+2. Solder the keyboard switches onto the pcb according to the silkscreen layer.
+3. We'll start with attatching the ESP32 into the PCB via the connector sockets.
+4. Secure the PCB into the 4 tower screws with 4x 4mm m3 self-tapped screws.
+5. Insert and attach the 3.5'' rpi display throgh the hole of the case and into the pcb's connector header pins.
+6. Attach the keycaps to the keyboard switch for easier control of buttons.
+
+# Libraries installed
+1. Spotify Esp32 - https://github.com/FinianLandes/SpotifyEsp32.git
+2. Arduino Json - https://github.com/bblanchon/ArduinoJson.git
+3. TFT_eSPI - https://github.com/Bodmer/TFT_eSPI.git
+
+# Schematics
 <img width="1525" height="877" alt="image" src="https://github.com/user-attachments/assets/eff37c1b-94e0-4b02-8c2c-3a58f313a164" />
 
 # PCB
