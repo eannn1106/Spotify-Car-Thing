@@ -44,11 +44,13 @@ However for the one-time authentication part from Spotify API have to done it th
 - Connects to the wifi credentials provided from the captive web portal by becoming into station mode.
 - User will authenticate their spotify account to obtain the refresh token and access token (required by spotify) <img width="831" height="555" alt="image" src="https://github.com/user-attachments/assets/bcbecccc-453e-4ddf-9c17-f7550e56f275" />
 2. Controlling playback flow
-- Using this library https://github.com/FinianLandes/SpotifyEsp32 and setting the scopes from https://developer.spotify.com/documentation/web-api/concepts/scopes
+- Using this library https://github.com/FinianLandes/SpotifyEsp32 and setting the scopes from https://developer.spotify.com/documentation/web-api/concepts/scopes, user will constantly make web api requests and obtain the reponse status code as an indication of the status of the request.
+- Obtained data from the web api will be in Json document form and will be parsed into each variable.
 3. Obtaining lyrics from lrclib API
 - ESP32 will make HTTP requests to obtain the lyrics in Json document form containing synced lyrics and unsynced lyrics.
 4. Synced lyrics
 - ESP32 will create it's own timestamp to match with the synced lyrics' timestamp whenever the current track started playing.
+5. 
 # Parts needed
 [Bill of Materials](BOM.csv)
 # Schematic
@@ -60,7 +62,7 @@ However for the one-time authentication part from Spotify API have to done it th
 <img width="1082" height="678" alt="image" src="https://github.com/user-attachments/assets/3ebd187c-baae-4ad9-88ef-633375043da2" />
 <img width="1032" height="645" alt="image" src="https://github.com/user-attachments/assets/3b8edd2f-04bf-4020-be49-252218ae8e59" />
 
-To make the device more compact, I decided to add the ESP32 below the PCB
+To make the device more compact, I decided to add the ESP32 below the PCB.
 #Case
 The case is being held by 4 cantilever snaps at the four corners of the case.
 <img width="1125" height="679" alt="image" src="https://github.com/user-attachments/assets/05019cee-6130-42db-b542-c6c89a17285b" />
