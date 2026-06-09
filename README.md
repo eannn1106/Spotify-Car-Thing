@@ -1,6 +1,7 @@
 # Spotify Car Thing_v1
 A designated spotify display that can control playback, fetch track information including song duration, song artist, song album and displays lyrics. This spotify display is specially modified to fit in among non-coders by logging in wifi credentials throughout captive portal.
 However for the one-time authentication part from Spotify API have to done it through a serial monitor by running the given code. 
+
 ****Note this device requires Spotify Premium and external sound system e.g. phone, laptop, speaker**
 <img width="4000" height="3000" alt="Spotify_Car_Thing__v1_(rendered case)" src="https://github.com/user-attachments/assets/88d3d9d5-75f8-41c5-97be-8fcc931b804c" />
 # Why I want to build this?
