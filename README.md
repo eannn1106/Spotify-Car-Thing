@@ -108,5 +108,9 @@ The case is being held by 4 cantilever snaps at the four corners of the case.
 The PCB is being screwed into these 4 screw towers using 4x M3 screws
 <img width="1241" height="739" alt="image" src="https://github.com/user-attachments/assets/b2ac7ffb-c3dd-46a8-8230-39c27836538c" />
 
+I got the inspiration from a retro tv specifically this type.
+<img width="740" height="740" alt="image" src="https://github.com/user-attachments/assets/70463ebc-d613-453f-b489-271918c81cb5" />
+The case looks boxy and have slight rounded edges on the side but, for the bottom of the case, I won't make it curved as it can't be tumbling down from bumpy roads. The controls are on the right hand side and the screen is on the left hand side of the case.
+
 # Zine
 <img width="1398" height="2000" alt="Zine" src="https://github.com/user-attachments/assets/27b23204-77aa-46b0-b7cf-076a5725356b" />
