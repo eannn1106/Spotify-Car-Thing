@@ -63,7 +63,7 @@ However for the one-time authentication part from Spotify API have to done it th
 <img width="1032" height="645" alt="image" src="https://github.com/user-attachments/assets/3b8edd2f-04bf-4020-be49-252218ae8e59" />
 
 To make the device more compact, I decided to add the ESP32 below the PCB.
-#Case
+# Case
 The case is being held by 4 cantilever snaps at the four corners of the case.
 <img width="1125" height="679" alt="image" src="https://github.com/user-attachments/assets/05019cee-6130-42db-b542-c6c89a17285b" />
 <img width="1068" height="580" alt="image" src="https://github.com/user-attachments/assets/382c4896-2f38-4874-b40b-9287b0c62510" />
