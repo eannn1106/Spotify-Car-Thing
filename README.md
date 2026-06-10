@@ -3,7 +3,8 @@ A designated spotify display that can control playback, fetch track information 
 However for the one-time authentication part from Spotify API have to done it through a serial monitor by running the given code. 
 
 ****Note this device requires Spotify Premium and external sound system e.g. phone, laptop, speaker**
-<img width="4000" height="3000" alt="Spotify_Car_Thing__v1_(rendered case)" src="https://github.com/user-attachments/assets/88d3d9d5-75f8-41c5-97be-8fcc931b804c" />
+<img width="2000" height="2861" alt="image" src="https://github.com/user-attachments/assets/1b53f40e-4733-4d6a-a807-44e18854ae0a" />
+
 # Why I want to build this?
 - A spotify car thing manufactured from Spotify costs over 30 USD, and for aesthetics reasons, I think that it is cool to have one sitting right in front of the car dashboard.
 - The original spotify car thing doesn't support lyrics display and whenever I heard a song playing in my Spotify, I have the curiosity to seek for the lyrics. But I doesn't want the lyrics to pop out in the corner of my desktop. Instead I wanted a seperate display device for this.
