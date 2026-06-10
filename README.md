@@ -113,6 +113,3 @@ I got the inspiration from a retro tv specifically this type.
 <img width="740" height="740" alt="image" src="https://github.com/user-attachments/assets/70463ebc-d613-453f-b489-271918c81cb5" /> 
 
 The case looks boxy and have slight rounded edges on the side but, for the bottom of the case, I won't make it curved as it can't be tumbling down from bumpy roads. The controls are on the right hand side and the screen is on the left hand side of the case.
-
-# Zine
-<img width="1398" height="2000" alt="Zine" src="https://github.com/user-attachments/assets/27b23204-77aa-46b0-b7cf-076a5725356b" />
