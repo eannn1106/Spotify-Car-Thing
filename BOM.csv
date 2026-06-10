@@ -1,7 +1,0 @@
-No.,Name,Quantity,Unit Price (RM),Quantity Price (RM),Unit Price (USD),Quantity Price (USD),Manufacturer,Code,Platform,Link
-1,ESP32 devkit v1,1,29,29,7.23,7.23,Espressif Systems,NODEMCU-ESP32,Cytron Marketplace,https://my.cytron.io/p-nodemcu-esp32
-2,3.5 inch RPI display,1,65,65,16.2,16.2,Rasberry Pi,DS-TFT-3.5,Cytron Marketplace,https://my.cytron.io/p-3.5-inch-tft-touch-screen-for-rpi-3b-3b-plus-4b
-3,Mechanical Keyboards switches,3,0.16,0.48,0.04,0.12,Akko Cream,-,Shopee,https://my.shp.ee/7XG1UPNv
-4,Keycaps,3,2,6,0.5,1.5,MKB,-,Shopee,https://my.shp.ee/X7Zdr3Vp
-5,PCB,5,7.3,36.5,1.82,9.1,JCLPCB,-,JCLPCB,https://cart.jlcpcb.com/quote?stencilLayer=2&stencilWidth=100&stencilLength=100&stencilCounts=5&plateType=1&spm=Jlcpcb.Homepage.1010
-Total(RM),,,,136.98,Total(USD),34.15,,,,
