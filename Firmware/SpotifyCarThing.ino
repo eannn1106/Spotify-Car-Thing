@@ -73,7 +73,7 @@ bool isSetupMode = false;
 #define LYRIC_Y 192
 #define NEXT_LYRIC_Y 240
 
-//ADDING DISPLAY FUNCTIONS 
+//DISPLAY FUNCTION
 void initDisplay(){
   tft.begin();
   tft.setRotation(1);
