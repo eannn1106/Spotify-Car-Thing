@@ -63,15 +63,15 @@ bool isSetupMode = false;
 
 //LAYOUT POSITIONS
 #define HEADER_H 40
-#define TRACK_Y 55
-#define ARTIST_Y 95
-#define ALBUM_Y 125
-#define PROGRESS_Y 160
-#define PROGRESS_H 14
+#define TRACK_Y 48
+#define ARTIST_Y 90
+#define ALBUM_Y 118
+#define PROGRESS_Y 152
+#define PROGRESS_H 16
 #define PROGRESS_X 20
 #define PROGRESS_W 440
-#define LYRIC_Y 195
-#define NEXT_LYRIC_Y 250
+#define LYRIC_Y 192
+#define NEXT_LYRIC_Y 240
 
 //ADDING DISPLAY FUNCTIONS 
 void initDisplay(){
@@ -99,13 +99,13 @@ void clearLine(int y, int h){
 
 String truncateText(String text, uint8_t size, int maxWidth){
   tft.setTextSize(size);
-  while(tft.textWidth(text) > maxWidth && text.length() > 3){
-    text =  text.substring(0, text.length() - 1);
-  }
-  if(tft.textWidth(text) < tft.textWidth(text + "...") && text.length() < 3){
+  if(tft.textWidth(text) <= maxWidth){
     return text;
   }
-  return text;
+  while(text.length() > 1 && tft.textWidth(text + "...") > maxWidth){
+    text = text.substring(0, text.length() - 1);
+  }
+  return text + "...";
 }
 
 //Screen for booting
@@ -274,12 +274,12 @@ void drawNowPlayingLayout(){
   tft.fillRect(0, 0, SCREEN_W, HEADER_H, DARK_GREY);
   tft.setTextColor(SPOTIFY_GREEN, DARK_GREY);
   tft.setTextSize(2);
-  tft.setCursor(10, 20);
+  tft.setCursor(10, 12);
   tft.print("NOW PLAYING");
 
-  tft.drawRoundRect(PROGRESS_X, PROGRESS_Y, PROGRESS_W, PROGRESS_H, 4, DARK_GREY);
+  tft.drawRoundRect(PROGRESS_X, PROGRESS_Y, PROGRESS_W, PROGRESS_H, 4, 0X4A69);
 
-  tft.drawFastHLine(20, LYRIC_Y - 10, SCREEN_W - 40, DARK_GREY);
+  tft.drawFastHLine(20, LYRIC_Y - 12, SCREEN_W - 40, DARK_GREY);
 }
 
 void updateTrackInfo(String track, String artist, String album){
@@ -294,18 +294,16 @@ void updateTrackInfo(String track, String artist, String album){
 
   //track name
   tft.setTextSize(2);
-  String trackDisplay = truncateText(track, 2, SCREEN_W - 20);
-  drawCenteredText(trackDisplay, TRACK_Y, TFT_WHITE, 2);
+  uint8_t trackSize = (tft.textWidth(track) > SCREEN_W - 20) ? 1 : 2;
+  drawCenteredText(track, TRACK_Y, TFT_WHITE, trackSize);
 
   //artist name
   tft.setTextSize(2);
-  String artistDisplay = truncateText(artist, 2, SCREEN_W - 20);
-  drawCenteredText(artistDisplay, ARTIST_Y, SPOTIFY_GREEN, 2);
+  uint8_t artistSize = (tft.textWidth(artist) > SCREEN_W - 20) ? 1 : 2;
+  drawCenteredText(artist, ARTIST_Y, SPOTIFY_GREEN, artistSize);
 
   //album name
-  tft.setTextSize(1);
-  String albumDisplay = truncateText(album, 1, SCREEN_W - 20);
-  drawCenteredText(albumDisplay, ALBUM_Y, LIGHT_GREY, 1);
+  drawCenteredText(album, ALBUM_Y, LIGHT_GREY, 1);
 }
 
 void updateProgressBar(unsigned long positionMs, unsigned long durationMs){
@@ -348,27 +346,33 @@ void updateLyrics(String currentLine, String nextLine){
   displayedLyric = currentLine;
   displayedNextLyric = nextLine;
 
-  clearLine(LYRIC_Y, SCREEN_H - LYRIC_Y);
+  clearLine(LYRIC_Y - 5, SCREEN_H - LYRIC_Y + 5);
 
+  if(!currentLine.isEmpty()){
+    tft.setTextSize(2);
+    uint8_t lyricSize = (tft.textWidth(currentLine) > SCREEN_W - 20) ? 1 : 2;
+    drawCenteredText(currentLine, LYRIC_Y, TFT_WHITE, lyricSize);
+  }
+  
   if(!nextLine.isEmpty()){
-    tft.setTextSize(1);
-    String nextDisplay = truncateText(nextLine, 1, SCREEN_W - 20);
-    drawCenteredText(nextDisplay, NEXT_LYRIC_Y, LIGHT_GREY, 1);
+    tft.setTextSize(2);
+    uint8_t nextSize = (tft.textWidth(nextLine) > SCREEN_W - 20) ? 1 : 2;
+    drawCenteredText(nextLine, NEXT_LYRIC_Y, LIGHT_GREY, nextSize);
   }
 }
 
 void updatePlayPauseIcon(bool playing){
+  static const unsigned char PROGMEM image_music_pause_bits[] = {0xf9,0xf0,0x89,0x10,0x89,0x10,0x89,0x10,0x89,0x10,0x89,0x10,0x89,0x10,0x89,0x10,0x89,0x10,0x89,0x10,0x89,0x10,0x89,0x10,0x89,0x10,0x89,0x10,0xf9,0xf0,0x00,0x00};
+  static const unsigned char PROGMEM image_music_play_bits[] = {0xc0,0x00,0xe0,0x00,0x98,0x00,0x86,0x00,0x81,0x80,0x80,0x60,0x80,0x18,0x80,0x06,0x80,0x18,0x80,0x60,0x81,0x80,0x86,0x00,0x98,0x00,0xe0,0x00,0xc0,0x00,0x00,0x00};
   tft.fillRect(SCREEN_W - 35, 8, 25, 25, DARK_GREY);
   tft.setTextSize(2);
   if(playing){
     tft.setTextColor(SPOTIFY_GREEN, DARK_GREY);
-    tft.setCursor(SCREEN_W - 32, 12);
-    tft.print("|>");
+    tft.drawBitmap(SCREEN_W - 32, 12, image_music_play_bits, 15, 16, 0xffff);
   }
   else{
     tft.setTextColor(LIGHT_GREY, DARK_GREY);
-    tft.setCursor(SCREEN_W - 32, 12);
-    tft.print("||");
+    tft.drawBitmap(SCREEN_W - 32, 12, image_music_pause_bits, 12, 16, 0xffff);
   }
 }
 
@@ -435,6 +439,10 @@ void checkResetButton(){
         Serial.println("[RESET] ❌ CANCELLED RESET");
         showResetCancelled();
         displayedTrack = "";
+        displayedAlbum = "";
+        displayedAlbum = "";
+        displayedLyric = "";
+        drawNowPlayingLayout();
         return;
       }
     }
@@ -590,7 +598,7 @@ const char* WIFI_HTML = R"=====(
         <span>Device will connect and show Spotify login</span>
       </div>
       <div class = "step">
-        <div class = "step-num">3</div>ii8
+        <div class = "step-num">3</div>
         <span>Login once, works forever after!</span>
       </div>
 
@@ -1133,6 +1141,7 @@ void setup(){
           showWifiFailedScreen();
           delay(1000);
           wifiSaved = false;
+          showWifiSetupScreen();
           clearWifiCredentials();
         }
       }
